@@ -1,0 +1,28 @@
+#cfa<-read.csv("cleaned_survey_revise.csv", header=T, sep=",")
+save(list=c("cfa"), file="cfa.RData", compress=F)
+load("cfa.RData")
+
+install.packages("lavaan") # 安裝程式套件
+library(lavaan) # 載入程式套件
+
+cfa.model = '家庭背景屬性 =~ 父教+ 母教+收入 
+            自律學習 =~ 自1 + 自2 + 自3 + 自4 + 自5
+            時間規劃 =~ 時1 + 時2 + 時3 + 時4 +時5
+            內在動機 =~ 內1 + 內2 + 內3 + 內4 + 內5
+            外在動機 =~ 外1 + 外2 + 外3 + 外4 + 外5
+            自信心 =~ 信1 + 信2 + 信3 + 信4 + 信5
+            英語能力自評 =~ 能力1 + 能力2 + 能力3 + 能力4 + 能力5'
+            
+fit = cfa(cfa.model, data = cfa)
+
+summary(fit, fit.measures = TRUE, standardized=TRUE,
+        rsquare=TRUE) 
+
+#draw the cfa model
+install.packages("semPlot") # 安裝程式套件
+library(semPlot) # 載入程式套件
+
+semPaths(fit, layout="tree2", whatLabels="std", 
+style="lisrel",edge.color=c("black"), color=c("greenyellow"), 
+nDigits=3, nCharNodes =6, label.cex=1.2, sizeMan= 5,sizeLat =10,sizeMan2= 5,sizeLat2 =8,edge.label.cex=0.8)
+
