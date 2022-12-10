@@ -15,6 +15,10 @@ cfa.model = '家庭背景屬性 =~ 父教+ 母教+收入
             
 fit = cfa(cfa.model, data = cfa)
 
+#因素負荷量: Latent Variables > Std.all
+#相關係數: Covariances > Std.all
+#信度係數: R-Square(變數被因素解釋的比例) > Std.all
+#測量誤差: Variances > Std.all
 summary(fit, fit.measures = TRUE, standardized=TRUE,
         rsquare=TRUE) 
 
